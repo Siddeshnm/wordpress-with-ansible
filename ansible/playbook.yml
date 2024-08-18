@@ -1,0 +1,15 @@
+---
+- hosts: wordpress-server
+  become: yes
+  roles:
+    - wordpress
+
+- hosts: nginx-server
+  become: yes
+  roles:
+    - nginx
+
+- hosts: mysql-server
+  become: yes
+  roles:
+    - mysql

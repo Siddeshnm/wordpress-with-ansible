@@ -1,0 +1,75 @@
+---
+# tasks file for mysql
+- name: Install prerequisites
+  apt:
+    name: aptitude
+    update_cache: yes
+    state: latest
+    force_apt_get: yes
+
+- name: copy .my.cng file
+  copy:
+    src: .my.cnf
+    dest: /root/
+    mode: 0600
+
+
+- name: install mysql-server
+  apt:
+    name: mysql-server
+    state: present
+
+- name: start and enable mysql service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: installing python
+  apt:
+    name: python3-pip
+    state: present
+
+- name: install pymsql
+  pip:
+    name: PyMySQL
+    state: present
+
+# MySQL Configuration
+- name: Set the root password
+  mysql_user:
+    host: localhost
+    name: root
+    password: Root@1234
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  tags: [ mysql, mysql-root ]
+
+- name: Remove all anonymous user accounts
+  mysql_user:
+    name: ''
+    host_all: yes
+    state: absent
+    login_user: root
+    login_password: Root@1234
+    
+- name: Remove the MySQL test database
+  mysql_db:
+    name: test
+    state: absent
+    login_user: root
+    login_password: Root@1234
+
+- name: Creates database for WordPress
+  mysql_db:
+    name: Wordpress
+    state: present
+    login_user: root
+    
+- name: Create MySQL user for WordPress
+  mysql_user:
+    name: wordpress
+    password: Wordpress@1234
+    priv: "Wordpress.*:ALL"
+    state: present
+    login_user: root
+    login_password: Root@1234

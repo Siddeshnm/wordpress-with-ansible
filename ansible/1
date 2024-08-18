@@ -1,0 +1,5 @@
+---
+- hosts: nginx-server
+  become: yes
+  roles:
+    - nginx 
