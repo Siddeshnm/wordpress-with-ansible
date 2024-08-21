@@ -1,4 +1,10 @@
 ---
+
+- hosts: mysql-server
+  become: yes
+  roles:
+    - mysql
+
 - hosts: wordpress-server
   become: yes
   roles:
@@ -9,7 +15,3 @@
   roles:
     - nginx
 
-- hosts: mysql-server
-  become: yes
-  roles:
-    - mysql

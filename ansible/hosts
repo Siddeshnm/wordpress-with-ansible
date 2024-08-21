@@ -1,8 +1,8 @@
 [nginx-server]
-13.126.109.116 ansible_ssh_user=ubuntu ansible_private_key_file=key.pem
+13.233.167.87 ansible_ssh_user=ubuntu ansible_private_key_file=key.pem
 
 [wordpress-server]
-10.0.0.36 ansible_ssh_user=ec2-user ansible_private_key_file=key.pem
+10.0.0.38 ansible_ssh_user=ec2-user ansible_private_key_file=key.pem
 
 [mysql-server]
 10.0.0.40 ansible_ssh_user=ubuntu ansible_private_key_file=key.pem

@@ -73,3 +73,5 @@
     state: present
     login_user: root
     login_password: Root@1234
+    host: 10.0.0.38
+    login_unix_socket: /var/run/mysqld/mysqld.sock

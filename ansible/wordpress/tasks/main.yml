@@ -1,19 +1,15 @@
 ---
-# tasks file for wordpress
-- name: Install prerequisites
-  apt: 
-    name: aptitude 
-    update_cache: yes 
-    state: latest 
-    force_apt_get: yes
-
-- name: Install LAMP Packages
-  apt: name={{ item }} update_cache=yes state=latest
-  loop: [ 'apache2', 'mysql-client', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php' ]
-
-- name: Install PHP Extensions
-  apt: name={{ item }} update_cache=yes state=latest
-  loop: [ 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip' ]
+- name: Install required packages
+  dnf:
+    name: 
+      - httpd
+      - php
+      - php-mysqlnd
+      - php-fpm
+      - php-json
+      - wget
+      - mariadb105
+    state: present
 
 - name: Download WordPress
   get_url:
@@ -24,29 +20,21 @@
   unarchive:
     src: /tmp/wordpress.tar.gz
     dest: /var/www/html/
-    remote_src: yes
     owner: apache
     group: apache
+    remote_src: yes
     mode: 0775
 
 - name: Configure WordPress
-  copy:
+  template:
     src: wp-config.php
-    dest: /var/www/html/wordpress/
+    dest: /var/www/html/wordpress/wp-config.php
     owner: apache
     group: apache
     mode: 0644
 
 - name: Start Apache
   service:
-    name: apache2
+    name: httpd
     state: started
     enabled: true
-
-- name: restart apahe
-  service:
-    name: apache2
-    state: reloaded
-
-
-
