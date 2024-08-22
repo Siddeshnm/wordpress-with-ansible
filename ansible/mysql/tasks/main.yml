@@ -19,6 +19,14 @@
     name: mysql-server
     state: present
 
+- name: Enable remote login to mysql
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    backup: yes
+
+
 - name: start and enable mysql service
   service:
     name: mysql
@@ -37,8 +45,7 @@
 
 # MySQL Configuration
 - name: Set the root password
-  mysql_user:
-    host: localhost
+  mysql_user: 
     name: root
     password: Root@1234
     login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -73,5 +80,9 @@
     state: present
     login_user: root
     login_password: Root@1234
-    host: 10.0.0.38
+    host: 10.0.0.42
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+
+
+
