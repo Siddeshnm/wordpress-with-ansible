@@ -29,7 +29,7 @@ define( 'DB_USER', 'wordpress' );
 define( 'DB_PASSWORD', 'Wordpress@1234' );
 
 /** Database hostname */
-define( 'DB_HOST', '10.0.0.37' );
+define( 'DB_HOST', '10.0.0.41' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -83,7 +83,12 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+/** set the site URL */
+define('WP_HOME','http://public-lb-2004001497.ap-south-1.elb.amazonaws.com/wordpress');
+define('WP_SITEURL','http://public-lb-2004001497.ap-south-1.elb.amazonaws.com/wordpress');
 
+/** Fix to get the dashboard working with the reverse proxy.*/
+$_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", "/wordpress/wp-admin/",  $_SERVER['REQUEST_URI']);
 
 /* That's all, stop editing! Happy publishing. */
 

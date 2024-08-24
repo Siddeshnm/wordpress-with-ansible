@@ -26,6 +26,13 @@
     line: 'bind-address = 0.0.0.0'
     backup: yes
 
+- name: Enable remote login to mysql
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^#port'
+    line: 'port = 3306'
+    backup: yes
+
 
 - name: start and enable mysql service
   service:
@@ -80,7 +87,7 @@
     state: present
     login_user: root
     login_password: Root@1234
-    host: 10.0.0.42
+    host: 10.0.0.45
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
 
